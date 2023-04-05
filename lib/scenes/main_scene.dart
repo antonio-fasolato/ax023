@@ -14,7 +14,7 @@ class MainScene extends StatelessWidget {
       body: const Center(
         child: Text("Home"),
       ),
-      bottomNavigationBar: BottomNavigation.build(context),
+      bottomNavigationBar: BottomNavigation(title: title),
     );
   }
 }

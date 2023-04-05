@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
-class BottomNavigation {
-  static Widget build(BuildContext context) {
+class BottomNavigation extends StatelessWidget {
+  const BottomNavigation({super.key, required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
     return BottomAppBar(
         shape: const CircularNotchedRectangle(),
         color: Colors.blue,

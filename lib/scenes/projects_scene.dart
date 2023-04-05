@@ -14,7 +14,7 @@ class ProjectsScene extends StatelessWidget {
       body: const Center(
         child: Text("Projects"),
       ),
-      bottomNavigationBar: BottomNavigation.build(context),
+      bottomNavigationBar: BottomNavigation(title: title),
     );
   }
 }
