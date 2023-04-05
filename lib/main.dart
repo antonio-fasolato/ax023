@@ -124,20 +124,39 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.folder_outlined), label: "Projects")
-        ],
-        onTap: _bottomItemTapped,
-      ),
+      bottomNavigationBar: BottomAppBar(
+          shape: const CircularNotchedRectangle(),
+          color: Colors.blue,
+          child: IconTheme(
+            data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  tooltip: "Home",
+                  icon: const Icon(Icons.home_outlined),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text("Home")));
+                  },
+                ),
+                IconButton(
+                  tooltip: "Progetti",
+                  icon: const Icon(Icons.folder_outlined),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Progetti")));
+                  },
+                ),
+              ],
+            ),
+          )),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation
+          .endDocked, // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
