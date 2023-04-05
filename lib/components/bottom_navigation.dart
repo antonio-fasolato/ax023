@@ -13,16 +13,14 @@ class BottomNavigation {
                 tooltip: "Home",
                 icon: const Icon(Icons.home_outlined),
                 onPressed: () {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text("Home")));
+                  Navigator.of(context).pushNamed("/");
                 },
               ),
               IconButton(
                 tooltip: "Progetti",
                 icon: const Icon(Icons.folder_outlined),
                 onPressed: () {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text("Progetti")));
+                  Navigator.of(context).pushNamed("/projects");
                 },
               ),
             ],

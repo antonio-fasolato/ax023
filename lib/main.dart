@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'scenes/main_scene.dart';
+import 'scenes/projects_scene.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,84 +63,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _bottomItemTapped(int index) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("Pulsante $index")));
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
       theme: ThemeData(primarySwatch: Colors.blue),
-      routes: {'/': (BuildContext ctx) => MainScene(title: widget.title)},
+      routes: {
+        '/': (BuildContext ctx) => MainScene(title: widget.title),
+        '/projects': (BuildContext ctx) => ProjectsScene(title: widget.title)
+      },
       initialRoute: '/',
     );
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: Text(widget.title),
-    //     actions: <Widget>[
-    //       IconButton(
-    //           onPressed: () {
-    //             ScaffoldMessenger.of(context).showSnackBar(
-    //                 const SnackBar(content: Text("Mese precedente")));
-    //           },
-    //           icon: const Icon(Icons.arrow_left)),
-    //       IconButton(
-    //           onPressed: () {
-    //             ScaffoldMessenger.of(context).showSnackBar(
-    //                 const SnackBar(content: Text("Mese successivo")));
-    //           },
-    //           icon: const Icon(Icons.arrow_right))
-    //     ],
-    //   ),
-    //   body: Center(
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: <Widget>[
-    //         const Text(
-    //           'You have pushed the button this many times:',
-    //         ),
-    //         Text(
-    //           '$_counter',
-    //           style: Theme.of(context).textTheme.headlineMedium,
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    //   bottomNavigationBar: BottomAppBar(
-    //       shape: const CircularNotchedRectangle(),
-    //       color: Colors.blue,
-    //       child: IconTheme(
-    //         data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-    //         child: Row(
-    //           children: <Widget>[
-    //             IconButton(
-    //               tooltip: "Home",
-    //               icon: const Icon(Icons.home_outlined),
-    //               onPressed: () {
-    //                 ScaffoldMessenger.of(context)
-    //                     .showSnackBar(const SnackBar(content: Text("Home")));
-    //               },
-    //             ),
-    //             IconButton(
-    //               tooltip: "Progetti",
-    //               icon: const Icon(Icons.folder_outlined),
-    //               onPressed: () {
-    //                 ScaffoldMessenger.of(context).showSnackBar(
-    //                     const SnackBar(content: Text("Progetti")));
-    //               },
-    //             ),
-    //           ],
-    //         ),
-    //       )),
-    //   floatingActionButton: FloatingActionButton(
-    //     onPressed: _incrementCounter,
-    //     tooltip: 'Increment',
-    //     child: const Icon(Icons.add),
-    //   ),
-    //   floatingActionButtonLocation: FloatingActionButtonLocation
-    //       .endDocked, // This trailing comma makes auto-formatting nicer for build methods.
-    // );
   }
 }
