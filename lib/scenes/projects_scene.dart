@@ -19,7 +19,7 @@ class ProjectsScene extends StatelessWidget {
         onPressed: () => ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Action"))),
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.domain_add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );

@@ -19,7 +19,7 @@ class MainScene extends StatelessWidget {
         onPressed: () => ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Action"))),
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.edit_calendar),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
