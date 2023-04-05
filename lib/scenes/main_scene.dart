@@ -10,7 +10,7 @@ class MainScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header.build(context, title),
+      appBar: Header(title: title),
       body: const Center(
         child: Text("Home"),
       ),
