@@ -15,6 +15,13 @@ class MainScene extends StatelessWidget {
         child: Text("Home"),
       ),
       bottomNavigationBar: BottomNavigation(title: title),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Action"))),
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }
