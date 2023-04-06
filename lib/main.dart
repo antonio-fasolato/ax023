@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'scenes/main_scene.dart';
 import 'scenes/projects_scene.dart';
+import 'package:intl/intl_standalone.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  findSystemLocale().then(
+      (_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
 }
 
 class MyApp extends StatelessWidget {

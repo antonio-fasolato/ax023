@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 
@@ -11,8 +12,14 @@ class MainScene extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Header(title: title),
-      body: const Center(
-        child: Text("Home"),
+      body: Center(
+        child: TableCalendar(
+          firstDay: DateTime.utc(2010, 10, 16),
+          lastDay: DateTime.utc(2030, 3, 14),
+          focusedDay: DateTime.now(),
+          locale: 'it_IT',
+          startingDayOfWeek: StartingDayOfWeek.monday,
+        ),
       ),
       bottomNavigationBar: BottomNavigation(title: title),
       floatingActionButton: FloatingActionButton(
