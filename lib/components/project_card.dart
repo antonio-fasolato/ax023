@@ -21,20 +21,17 @@ class ProjectCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                TextButton(
+                IconButton(
                     onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Elimina progetto"))),
-                    child: const Text("Elimina")),
-                const SizedBox(
-                  width: 8,
-                ),
-                TextButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    )),
+                IconButton(
                     onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Modifica progetto"))),
-                    child: const Text("Modifica")),
-                const SizedBox(
-                  width: 8,
-                ),
+                    icon: const Icon(Icons.edit)),
               ],
             ),
           ],
