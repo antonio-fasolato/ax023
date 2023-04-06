@@ -14,11 +14,14 @@ class MainScene extends StatelessWidget {
       appBar: Header(title: title),
       body: Center(
         child: TableCalendar(
-          firstDay: DateTime.utc(2010, 10, 16),
-          lastDay: DateTime.utc(2030, 3, 14),
+          firstDay: DateTime.utc(2023, 1, 1),
+          lastDay: DateTime.utc(2023, 12, 31),
           focusedDay: DateTime.now(),
           locale: 'it_IT',
           startingDayOfWeek: StartingDayOfWeek.monday,
+          onDaySelected: (selectedDay, focusedDay) =>
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("$selectedDay - $focusedDay"))),
         ),
       ),
       bottomNavigationBar: BottomNavigation(title: title),
