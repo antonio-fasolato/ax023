@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import '../components/header.dart';
 import '../components/bottom_navigation.dart';
@@ -8,26 +9,39 @@ class TableScene extends StatelessWidget {
   final String title;
 
   List<DataColumn> _createColumns() {
+    List<DataColumn> res = [];
+    for (int i = 0; i < 31; i++) {
+      res.add(DataColumn(label: Text("${i + 1}"), numeric: true));
+    }
+
     return [
-      DataColumn(label: Text('ID')),
-      DataColumn(label: Text('Book')),
-      DataColumn(label: Text('Author'))
+      const DataColumn(label: Text('Commessa e progetto')),
+      const DataColumn(label: Text('Totale'), numeric: true),
+      ...res
     ];
   }
 
   List<DataRow> _createRows() {
-    return [
-      DataRow(cells: [
-        DataCell(Text('#100')),
-        DataCell(Text('Flutter Basics')),
-        DataCell(Text('David John'))
-      ]),
-      DataRow(cells: [
-        DataCell(Text('#101')),
-        DataCell(Text('Dart Internals')),
-        DataCell(Text('Alex Wick'))
-      ])
-    ];
+    var rng = Random();
+
+    List<DataRow> res = [];
+    for (int i = 0; i < 5; i++) {
+      int total = 0;
+      List<DataCell> cells = [];
+      for (int j = 0; j < 31; j++) {
+        int r = rng.nextInt(8);
+        total += r;
+        cells.add(DataCell(Text("$r")));
+      }
+
+      res.add(DataRow(cells: [
+        DataCell(Text('Progetto ${i + 1}')),
+        DataCell(Text("$total")),
+        ...cells
+      ]));
+    }
+
+    return res;
   }
 
   @override
@@ -41,6 +55,8 @@ class TableScene extends StatelessWidget {
           DataTable(
             columns: _createColumns(),
             rows: _createRows(),
+            columnSpacing: 10,
+            showBottomBorder: true,
           )
         ],
       ),
