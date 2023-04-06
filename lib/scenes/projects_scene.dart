@@ -2,30 +2,28 @@ import 'package:flutter/material.dart';
 import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 import '../components/project_card.dart';
+import '../model/project_dao.dart';
 
 class ProjectsScene extends StatelessWidget {
   const ProjectsScene({super.key, required this.title});
 
   final String title;
+  final ProjectDao project = const ProjectDao(
+      code: "TORTPR001", description: "Analisi per Studio Torta");
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Header(title: title),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[
-            ProjectCard(),
-            SizedBox(height: 8,),
-            ProjectCard(),
-            SizedBox(height: 8,),
-            ProjectCard(),
-            SizedBox(height: 8,),
-            ProjectCard(),
-            SizedBox(height: 8,),
-            ProjectCard(),
-            SizedBox(height: 8,),
+        child: ListView(
+          children: <Widget>[
+            ProjectCard(
+              project: project,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
           ],
         ),
       ),

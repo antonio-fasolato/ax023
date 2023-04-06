@@ -1,40 +1,43 @@
 import 'package:flutter/material.dart';
+import '../model/project_dao.dart';
 
 class ProjectCard extends StatelessWidget {
-  const ProjectCard({super.key});
+  final ProjectDao project;
+
+  const ProjectCard({super.key, required this.project});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+        elevation: 2,
         child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        const ListTile(
-          leading: Icon(Icons.task),
-          title: Text("Titolo progetto"),
-          subtitle: Text("Descrizione del progetto."),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            TextButton(
-                onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Elimina progetto"))),
-                child: const Text("Elimina")),
-            const SizedBox(
-              width: 8,
+            ListTile(
+              leading: const Icon(Icons.task),
+              title: Text(project.code),
+              subtitle: Text(project.description),
             ),
-            TextButton(
-                onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Modifica progetto"))),
-                child: const Text("Modifica")),
-            const SizedBox(
-              width: 8,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                    onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Elimina progetto"))),
+                    child: const Text("Elimina")),
+                const SizedBox(
+                  width: 8,
+                ),
+                TextButton(
+                    onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Modifica progetto"))),
+                    child: const Text("Modifica")),
+                const SizedBox(
+                  width: 8,
+                ),
+              ],
             ),
           ],
-        ),
-      ],
-    ));
+        ));
   }
 }
