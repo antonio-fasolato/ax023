@@ -16,9 +16,16 @@ class BottomNavigation extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 tooltip: "Home",
-                icon: const Icon(Icons.home_outlined),
+                icon: const Icon(Icons.calendar_month_outlined),
                 onPressed: () {
                   Navigator.of(context).pushNamed("/");
+                },
+              ),
+              IconButton(
+                tooltip: "Table",
+                icon: const Icon(Icons.table_view_outlined),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/table");
                 },
               ),
               IconButton(

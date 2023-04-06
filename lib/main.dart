@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'scenes/main_scene.dart';
 import 'scenes/projects_scene.dart';
+import 'scenes/table_scene.dart';
 import 'package:intl/intl_standalone.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -74,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
         '/': (BuildContext ctx) => MainScene(title: widget.title),
+        '/table': (BuildContext ctx) => TableScene(title: widget.title),
         '/projects': (BuildContext ctx) => ProjectsScene(title: widget.title)
       },
       initialRoute: '/',
