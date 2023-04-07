@@ -11,32 +11,35 @@ class DatabaseConnection {
 
   DatabaseConnection._internal();
 
+  DatabaseInfo? _databaseInfo;
+
   static Future<DatabaseConnection> getInstance() async {
-    Constants constants = await Constants.create();
+    if (_instance._databaseInfo == null) {
+      Constants constants = await Constants.create();
 
-    final docDir = Directory(constants.basePath);
-    if (!await docDir.exists()) {
-      await docDir.create(recursive: true);
-    }
-    final DatabaseInfo dbInfo = await SQLiteWrapper()
-        .openDB(p.join(docDir.path, constants.databaseName));
-    logger.d("Database path ${dbInfo.path}");
+      final docDir = Directory(constants.basePath);
+      if (!await docDir.exists()) {
+        await docDir.create(recursive: true);
+      }
+      _instance._databaseInfo = await SQLiteWrapper()
+          .openDB(p.join(docDir.path, constants.databaseName));
+      logger.d("Database path ${_instance._databaseInfo?.path}");
 
-    String sql = """
-		CREATE TABLE IF NOT EXISTS "todos" (
+      String sql = """
+    		CREATE TABLE IF NOT EXISTS "todos" (
           "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
           "title" varchar(255) NOT NULL,
           "done" int default 0
         );""";
-    await SQLiteWrapper().execute(sql);
-    sql = """
-    CREATE TABLE IF NOT EXISTS "month" (
-      "year" integer NOT NULL,
-      "month" integer NOT NULL,
-      PRIMARY KEY ("year", "month")
-    ); """;
-    await SQLiteWrapper().execute(sql);
-
+      await SQLiteWrapper().execute(sql);
+      sql = """
+      CREATE TABLE IF NOT EXISTS "month" (
+        "year" integer NOT NULL,
+        "month" integer NOT NULL,
+        PRIMARY KEY ("year", "month")
+      ); """;
+      await SQLiteWrapper().execute(sql);
+    }
     return _instance;
   }
 }
