@@ -12,7 +12,7 @@ Future<void> main() async {
   var logger = Logger();
   logger.d("Starting application");
 
-  await DatabaseConnection().connect();
+  await DatabaseConnection.getInstance();
   // await SqliteRepository().initDb();
   // await SqliteRepository().demo();
   findSystemLocale().then(
