@@ -8,10 +8,11 @@ import 'package:intl/intl_standalone.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
-  await SqliteRepository().initDb();
-  await SqliteRepository().demo();
   var logger = Logger();
   logger.d("Starting application");
+
+  await SqliteRepository().initDb();
+  await SqliteRepository().demo();
   findSystemLocale().then(
       (_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
 }

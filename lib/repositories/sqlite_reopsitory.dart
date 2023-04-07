@@ -1,5 +1,6 @@
 import 'package:AX023/model/month_dao.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqlite_wrapper/sqlite_wrapper.dart';
@@ -14,6 +15,7 @@ class SqliteRepository {
   SqliteRepository._internal();
 
   final sqlWrapper = SQLiteWrapper();
+  final logger = Logger();
 
   initDb() async {
     final docDir = await getApplicationDocumentsDirectory();
@@ -22,7 +24,7 @@ class SqliteRepository {
     }
     final DatabaseInfo dbInfo =
         await SQLiteWrapper().openDB(p.join(docDir.path, "ax023.sqlite"));
-    debugPrint("Database path ${dbInfo.path}");
+    logger.d("Database path ${dbInfo.path}");
 
     String sql = """
 		CREATE TABLE IF NOT EXISTS "todos" (
@@ -43,12 +45,10 @@ class SqliteRepository {
   demo() async {
     final Map? todoMap = await sqlWrapper
         .query("SELECT * FROM todos WHERE id = 1", singleResult: true);
-    debugPrint("todoMap $todoMap");
+    logger.d("todoMap $todoMap");
 
     List<MonthDao> projects = List<MonthDao>.from(await sqlWrapper
         .query("SELECT * FROM month", fromMap: MonthDao.fromMap));
-    for (var p in projects) {
-      debugPrint("Month $p");
-    }
+    logger.d({"Projects", projects});
   }
 }
