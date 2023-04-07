@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'scenes/main_scene.dart';
 import 'scenes/projects_scene.dart';
 import 'scenes/table_scene.dart';
@@ -6,6 +7,9 @@ import 'package:intl/intl_standalone.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
+  var logger = Logger();
+  logger.d("Starting application");
+
   // runApp(const MyApp());
   findSystemLocale().then(
       (_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
