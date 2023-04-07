@@ -1,3 +1,4 @@
+import 'package:AX023/repositories/database_connection.dart';
 import 'package:AX023/repositories/sqlite_reopsitory.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -11,8 +12,9 @@ Future<void> main() async {
   var logger = Logger();
   logger.d("Starting application");
 
-  await SqliteRepository().initDb();
-  await SqliteRepository().demo();
+  await DatabaseConnection().connect();
+  // await SqliteRepository().initDb();
+  // await SqliteRepository().demo();
   findSystemLocale().then(
       (_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
 }
