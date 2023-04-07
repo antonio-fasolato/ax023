@@ -1,3 +1,4 @@
+import 'package:AX023/repositories/sqlite_reopsitory.dart';
 import 'package:flutter/material.dart';
 import 'scenes/main_scene.dart';
 import 'scenes/projects_scene.dart';
@@ -5,49 +6,12 @@ import 'scenes/table_scene.dart';
 import 'package:intl/intl_standalone.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
-import 'package:sqlite_wrapper/sqlite_wrapper.dart';
-import 'package:AX023/model/month_dao.dart';
-
 Future<void> main() async {
-  final docDir = await getApplicationDocumentsDirectory();
-  if (!await docDir.exists()) {
-    await docDir.create(recursive: true);
-  }
-  final DatabaseInfo dbInfo =
-      await SQLiteWrapper().openDB(p.join(docDir.path, "ax023.sqlite"));
-  debugPrint("Database path ${dbInfo.path}");
+  await SqliteRepository().initDb();
+  await SqliteRepository().demo();
 
-  String sql = """
-		CREATE TABLE IF NOT EXISTS "todos" (
-          "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-          "title" varchar(255) NOT NULL,
-          "done" int default 0
-        );""";
-  await SQLiteWrapper().execute(sql);
-  sql = """
-    CREATE TABLE IF NOT EXISTS "month" (
-      "year" integer NOT NULL,
-      "month" integer NOT NULL,
-      PRIMARY KEY ("year", "month")
-    ); """;
-  await SQLiteWrapper().execute(sql);
-
-  final sqlWrapper = SQLiteWrapper();
-
-  final Map? todoMap = await sqlWrapper
-      .query("SELECT * FROM todos WHERE id = 1", singleResult: true);
-  debugPrint("todoMap $todoMap");
-
-  List<MonthDao> projects = List<MonthDao>.from(
-      await sqlWrapper.query("SELECT * FROM month", fromMap: MonthDao.fromMap));
-  for (var p in projects) {
-    debugPrint("Month $p");
-  }
-
-  // findSystemLocale().then(
-  //     (_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
+  findSystemLocale().then(
+      (_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
 }
 
 class MyApp extends StatelessWidget {
