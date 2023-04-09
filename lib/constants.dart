@@ -13,7 +13,7 @@ class Constants {
     Constants constants = Constants._create();
 
     constants._basePath = preferences.getString("basePath") ??
-        (await getApplicationDocumentsDirectory()).toString();
+        (await getApplicationDocumentsDirectory()).path;
     constants._databaseName =
         preferences.getString("databaseName") ?? "ax023.sqlite";
 

@@ -1,4 +1,6 @@
+import 'package:AX023/repositories/project_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 import '../components/project_card.dart';
@@ -15,6 +17,20 @@ class ProjectsScene extends StatefulWidget {
 
 class _ProjectSceneState extends State<ProjectsScene> {
   List<ProjectDao> _projects = [];
+  final logger = Logger();
+
+  @override
+  void initState() {
+    super.initState();
+    ProjectRepository.getInstance().then((projectRepository) {
+      return projectRepository.getAllProjects();
+    }).then((projects) {
+      logger.d({"initState - callback", projects});
+      setState(() {
+        _projects = projects;
+      });
+    });
+  }
 
   List<Widget> _createCards() {
     return _projects.map((p) => ProjectCard(project: p)).toList();
@@ -23,7 +39,7 @@ class _ProjectSceneState extends State<ProjectsScene> {
   void _addProject() {
     setState(() {
       _projects.add(
-        const ProjectDao(code: "NETPR035", description: "Swabmonitor"),
+        ProjectDao(code: "NETPR035", description: "Swabmonitor"),
       );
     });
   }

@@ -8,8 +8,6 @@ import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
   await DatabaseConnection.getInstance();
-  // await SqliteRepository().initDb();
-  // await SqliteRepository().demo();
   findSystemLocale().then(
       (_) => initializeDateFormatting().then((_) => runApp(const MyApp())));
 }

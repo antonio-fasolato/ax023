@@ -26,18 +26,22 @@ class DatabaseConnection {
       logger.d("Database path ${_instance._databaseInfo?.path}");
 
       String sql = """
-    		CREATE TABLE IF NOT EXISTS "todos" (
-          "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-          "title" varchar(255) NOT NULL,
-          "done" int default 0
-        );""";
-      await SQLiteWrapper().execute(sql);
-      sql = """
       CREATE TABLE IF NOT EXISTS "month" (
         "year" integer NOT NULL,
         "month" integer NOT NULL,
         PRIMARY KEY ("year", "month")
-      ); """;
+      ); 
+      """;
+      await SQLiteWrapper().execute(sql);
+      sql = """
+        CREATE TABLE IF NOT EXISTS "project" (
+          "id" varchar NOT NULL primary key,
+          "code" varchar NOT NULL,
+          "description" varchar not null,
+          "special" int not null default(0),
+          "color" int not null default(0)
+        ); 
+      """;
       await SQLiteWrapper().execute(sql);
     }
     return _instance;
