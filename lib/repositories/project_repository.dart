@@ -26,4 +26,9 @@ class ProjectRepository {
     logger.v({"projects", res});
     return res;
   }
+
+  Future<void> save(ProjectDao p) async {
+    logger.d({"save", p.toMap()});
+    await sqlWrapper.insert(p.toMap(), "project");
+  }
 }

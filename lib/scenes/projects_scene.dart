@@ -1,6 +1,7 @@
 import 'package:AX023/repositories/project_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:uuid/uuid.dart';
 import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 import '../components/project_card.dart';
@@ -22,13 +23,16 @@ class _ProjectSceneState extends State<ProjectsScene> {
   @override
   void initState() {
     super.initState();
-    ProjectRepository.getInstance().then((projectRepository) {
-      return projectRepository.getAllProjects();
-    }).then((projects) {
-      logger.d({"initState - callback", projects});
-      setState(() {
-        _projects = projects;
-      });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getProjects();
+    });
+  }
+
+  void _getProjects() async {
+    List<ProjectDao> projects =
+        await (await ProjectRepository.getInstance()).getAllProjects();
+    setState(() {
+      _projects = projects;
     });
   }
 
@@ -36,11 +40,12 @@ class _ProjectSceneState extends State<ProjectsScene> {
     return _projects.map((p) => ProjectCard(project: p)).toList();
   }
 
-  void _addProject() {
+  Future<void> _addProject() async {
+    ProjectDao project = ProjectDao(
+        id: const Uuid().v4(), code: "NETPR035", description: "Swabmonitor");
+    await (await ProjectRepository.getInstance()).save(project);
     setState(() {
-      _projects.add(
-        ProjectDao(code: "NETPR035", description: "Swabmonitor"),
-      );
+      _projects.add(project);
     });
   }
 

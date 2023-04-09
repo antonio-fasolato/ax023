@@ -34,6 +34,18 @@ class ProjectDao {
         color: c);
   }
 
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> res = {
+      "id": _id,
+      "code": _code,
+      "description": _description,
+    };
+
+    res["special"] = _special ? 1 : 0;
+    res["color"] = _color == Colors.red ? 1 : 0;
+
+    return res;
+  }
 
   @override
   String toString() {
