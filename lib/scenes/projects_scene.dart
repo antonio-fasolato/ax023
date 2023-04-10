@@ -28,7 +28,7 @@ class _ProjectSceneState extends State<ProjectsScene> {
     });
   }
 
-  void _getProjects() async {
+  Future<void> _getProjects() async {
     List<ProjectDao> projects =
         await (await ProjectRepository.getInstance()).getAllProjects();
     setState(() {
@@ -37,7 +37,9 @@ class _ProjectSceneState extends State<ProjectsScene> {
   }
 
   List<Widget> _createCards() {
-    return _projects.map((p) => ProjectCard(project: p)).toList();
+    return _projects
+        .map((p) => ProjectCard(project: p, onDeleted: _deleteProject))
+        .toList();
   }
 
   Future<void> _addProject() async {
@@ -47,6 +49,11 @@ class _ProjectSceneState extends State<ProjectsScene> {
     setState(() {
       _projects.add(project);
     });
+  }
+
+  Future<void> _deleteProject(ProjectDao p) async {
+    await (await ProjectRepository.getInstance()).delete(p);
+    await _getProjects();
   }
 
   @override

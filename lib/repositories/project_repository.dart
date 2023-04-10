@@ -31,4 +31,9 @@ class ProjectRepository {
     logger.d({"save", p.toMap()});
     await sqlWrapper.insert(p.toMap(), "project");
   }
+
+  Future<void> delete(ProjectDao p) async {
+    logger.d({"delete", p.toMap()});
+    await sqlWrapper.delete(p.toMap(), "project", keys: ["id"]);
+  }
 }

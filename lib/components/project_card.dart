@@ -3,8 +3,13 @@ import '../model/project_dao.dart';
 
 class ProjectCard extends StatelessWidget {
   final ProjectDao project;
+  final Function(ProjectDao p) _onDeleted;
 
-  const ProjectCard({super.key, required this.project});
+  const ProjectCard(
+      {super.key,
+      required this.project,
+      required Function(ProjectDao p) onDeleted})
+      : _onDeleted = onDeleted;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +27,7 @@ class ProjectCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 IconButton(
-                    onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Elimina progetto"))),
+                    onPressed: () => _onDeleted(project),
                     icon: const Icon(
                       Icons.delete,
                       color: Colors.red,
