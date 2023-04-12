@@ -1,4 +1,5 @@
 import 'package:AX023/repositories/database_connection.dart';
+import 'package:AX023/scenes/options_scene.dart';
 import 'package:flutter/material.dart';
 import 'scenes/main_scene.dart';
 import 'scenes/projects_scene.dart';
@@ -77,7 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
       routes: {
         '/': (BuildContext ctx) => MainScene(title: widget.title),
         '/table': (BuildContext ctx) => TableScene(title: widget.title),
-        '/projects': (BuildContext ctx) => ProjectsScene(title: widget.title)
+        '/projects': (BuildContext ctx) => ProjectsScene(title: widget.title),
+        '/options': (BuildContext ctx) => OptionsScene(title: widget.title),
       },
       initialRoute: '/',
     );

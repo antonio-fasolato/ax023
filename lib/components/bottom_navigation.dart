@@ -35,6 +35,17 @@ class BottomNavigation extends StatelessWidget {
                   Navigator.of(context).pushNamed("/projects");
                 },
               ),
+              const Spacer(),
+              IconButton(
+                tooltip: "Opzioni",
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/options");
+                },
+              ),
+              const SizedBox(
+                width: 100,
+              )
             ],
           ),
         ));
