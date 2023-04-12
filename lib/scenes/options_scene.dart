@@ -1,3 +1,5 @@
+import 'package:AX023/components/bottom_navigation.dart';
+import 'package:AX023/components/header.dart';
 import 'package:flutter/material.dart';
 
 class OptionsScene extends StatelessWidget {
@@ -7,7 +9,12 @@ class OptionsScene extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text("Opzioni");
+    return Scaffold(
+      appBar: Header(title: title),
+      body: Text("Options"),
+      bottomNavigationBar: BottomNavigation(
+        title: title,
+      ),
+    );
   }
-
 }
