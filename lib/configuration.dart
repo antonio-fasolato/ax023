@@ -2,6 +2,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Configuration {
+  late SharedPreferences _preferences;
   late String _databaseFolder;
   late String _databaseName;
 
@@ -10,11 +11,11 @@ class Configuration {
   static Future<Configuration> getInstance() async {
     Configuration config = Configuration._internal();
 
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    config._databaseFolder = preferences.getString("databaseFolder") ??
+    config._preferences = await SharedPreferences.getInstance();
+    config._databaseFolder = config._preferences.getString("databaseFolder") ??
         (await getApplicationDocumentsDirectory()).path;
     config._databaseName =
-        preferences.getString("databaseName") ?? "ax023.sqlite";
+        config._preferences.getString("databaseName") ?? "ax023.sqlite";
 
     return config;
   }
@@ -22,4 +23,14 @@ class Configuration {
   String get databaseName => _databaseName;
 
   String get databaseFolder => _databaseFolder;
+
+  set databaseName(String value) {
+    _databaseName = value;
+    _preferences.setString("databaseName", value);
+  }
+
+  set databaseFolder(String value) {
+    _databaseFolder = value;
+    _preferences.setString("databaseFolder", value);
+  }
 }

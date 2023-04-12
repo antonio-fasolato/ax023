@@ -1,15 +1,21 @@
 import 'package:AX023/components/bottom_navigation.dart';
 import 'package:AX023/components/header.dart';
+import 'package:AX023/configuration.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 class OptionsScene extends StatelessWidget {
   final String title;
+  final Configuration config;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Logger logger = Logger();
 
-  OptionsScene({super.key, required this.title});
+  TextEditingController folderController = TextEditingController();
+
+  OptionsScene({super.key, required this.title, required this.config}) {
+    folderController.text = config.databaseFolder;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +31,7 @@ class OptionsScene extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: TextFormField(
+                      controller: folderController,
                       decoration: const InputDecoration(
                           labelText: "Cartella del database",
                           icon: Icon(Icons.folder)),
@@ -42,11 +49,25 @@ class OptionsScene extends StatelessWidget {
                             .getDirectoryPath(
                                 dialogTitle:
                                     "Selezionare la cartella di salvataggio del database");
-                        logger.d(selectedDirectory);
+                        if (selectedDirectory != null) {
+                          folderController.text = selectedDirectory;
+                        }
                       },
                       icon: const Icon(Icons.more_horiz))
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.all(40),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            config.databaseFolder = folderController.text;
+                          },
+                          child: const Text("Salva")))
+                ],
+              )
             ],
           ),
         ),
