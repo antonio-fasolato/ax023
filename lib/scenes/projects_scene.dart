@@ -1,3 +1,4 @@
+import 'package:AX023/components/project_dialog.dart';
 import 'package:AX023/repositories/project_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -42,83 +43,10 @@ class _ProjectSceneState extends State<ProjectsScene> {
         .toList();
   }
 
-  Future<void> _addProject() async {
-    GlobalKey<FormState> key = GlobalKey<FormState>();
-
-    TextEditingController codeController = TextEditingController();
-    TextEditingController nameController = TextEditingController();
-
-    String? x = await showDialog<String>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            scrollable: true,
-            title: Text("Nuovo progetto"),
-            content: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Form(
-                key: key,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: codeController,
-                      decoration: const InputDecoration(
-                          labelText: "Commessa", icon: Icon(Icons.account_box)),
-                      onSaved: (newValue) {
-                        logger.d("Saved commessa: $newValue");
-                      },
-                      validator: (value) {
-                        if (value?.isEmpty ?? false) {
-                          return "Codice commessa obbligatorio";
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(
-                      width: 400,
-                      child: TextFormField(
-                        controller: nameController,
-                        decoration: const InputDecoration(
-                            labelText: "Nome progetto",
-                            icon: Icon(Icons.email)),
-                        onSaved: (newValue) {
-                          logger.d("Saved nome: $newValue");
-                        },
-                        validator: (value) {
-                          if (value?.isEmpty ?? false) {
-                            return "Nome progetto obbligatorio";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16.0),
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            if (key.currentState?.validate() ?? false) {
-                              key.currentState?.save();
-                              ProjectDao project = ProjectDao(
-                                  id: const Uuid().v4(),
-                                  code: codeController.text,
-                                  description: nameController.text);
-                              await (await ProjectRepository.getInstance())
-                                  .save(project);
-                              setState(() {
-                                _projects.add(project);
-                              });
-                              if (!context.mounted) return;
-                              Navigator.of(context).pop("Test");
-                            }
-                          },
-                          child: Text("Ok")),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
+  Future<void> _addProject(ProjectDao project) async {
+    setState(() {
+      _projects.add(project);
+    });
   }
 
   Future<void> _deleteProject(ProjectDao p) async {
@@ -137,7 +65,7 @@ class _ProjectSceneState extends State<ProjectsScene> {
       ),
       bottomNavigationBar: BottomNavigation(title: widget.title),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addProject,
+        onPressed: () => ProjectDialog.addProject(context, _addProject),
         tooltip: 'Increment',
         child: const Icon(Icons.add_task),
       ),
