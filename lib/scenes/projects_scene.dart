@@ -2,7 +2,6 @@ import 'package:AX023/components/project_dialog.dart';
 import 'package:AX023/repositories/project_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:uuid/uuid.dart';
 import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 import '../components/project_card.dart';
@@ -65,7 +64,13 @@ class _ProjectSceneState extends State<ProjectsScene> {
       ),
       bottomNavigationBar: BottomNavigation(title: widget.title),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ProjectDialog.addProject(context, _addProject),
+        onPressed: () async {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ProjectDialog(onSaved: _addProject);
+              });
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add_task),
       ),
