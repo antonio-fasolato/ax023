@@ -74,19 +74,23 @@ class _ProjectSceneState extends State<ProjectsScene> {
                         return null;
                       },
                     ),
-                    TextFormField(
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                          labelText: "Nome progetto", icon: Icon(Icons.email)),
-                      onSaved: (newValue) {
-                        logger.d("Saved nome: $newValue");
-                      },
-                      validator: (value) {
-                        if (value?.isEmpty ?? false) {
-                          return "Nome progetto obbligatorio";
-                        }
-                        return null;
-                      },
+                    SizedBox(
+                      width: 400,
+                      child: TextFormField(
+                        controller: nameController,
+                        decoration: const InputDecoration(
+                            labelText: "Nome progetto",
+                            icon: Icon(Icons.email)),
+                        onSaved: (newValue) {
+                          logger.d("Saved nome: $newValue");
+                        },
+                        validator: (value) {
+                          if (value?.isEmpty ?? false) {
+                            return "Nome progetto obbligatorio";
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 16.0),
