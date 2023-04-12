@@ -1,6 +1,7 @@
 import 'package:AX023/components/bottom_navigation.dart';
 import 'package:AX023/components/header.dart';
 import 'package:AX023/configuration.dart';
+import 'package:AX023/repositories/database_connection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -8,12 +9,17 @@ import 'package:logger/logger.dart';
 class OptionsScene extends StatelessWidget {
   final String title;
   final Configuration config;
+  final DatabaseConnection connection;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Logger logger = Logger();
 
   TextEditingController folderController = TextEditingController();
 
-  OptionsScene({super.key, required this.title, required this.config}) {
+  OptionsScene(
+      {super.key,
+      required this.title,
+      required this.config,
+      required this.connection}) {
     folderController.text = config.databaseFolder;
   }
 
@@ -32,6 +38,7 @@ class OptionsScene extends StatelessWidget {
                   Expanded(
                     child: TextFormField(
                       controller: folderController,
+                      enabled: false,
                       decoration: const InputDecoration(
                           labelText: "Cartella del database",
                           icon: Icon(Icons.folder)),
@@ -62,8 +69,9 @@ class OptionsScene extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.all(40),
                       child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             config.databaseFolder = folderController.text;
+                            await connection.reconnect();
                           },
                           child: const Text("Salva")))
                 ],

@@ -9,18 +9,20 @@ import 'package:intl/intl_standalone.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
-  await DatabaseConnection.getInstance();
+  DatabaseConnection connection = await DatabaseConnection.getInstance();
   Configuration config = await Configuration.getInstance();
   findSystemLocale()
       .then((_) => initializeDateFormatting().then((_) => runApp(MyApp(
             config: config,
+            connection: connection,
           ))));
 }
 
 class MyApp extends StatelessWidget {
   final Configuration config;
+  final DatabaseConnection connection;
 
-  const MyApp({super.key, required this.config});
+  const MyApp({super.key, required this.config, required this.connection});
 
   // This widget is the root of your application.
   @override
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(
         title: 'Consuntivazione mese di ',
         config: config,
+        connection: connection,
       ),
     );
   }
@@ -41,8 +44,13 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   final String title;
   final Configuration config;
+  final DatabaseConnection connection;
 
-  const MyHomePage({super.key, required this.title, required this.config});
+  const MyHomePage(
+      {super.key,
+      required this.title,
+      required this.config,
+      required this.connection});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -69,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
         '/options': (BuildContext ctx) => OptionsScene(
               title: widget.title,
               config: widget.config,
+              connection: widget.connection,
             ),
       },
       initialRoute: '/',
