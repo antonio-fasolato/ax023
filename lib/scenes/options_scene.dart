@@ -1,6 +1,5 @@
 import 'package:AX023/components/bottom_navigation.dart';
 import 'package:AX023/components/header.dart';
-import 'package:AX023/constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';

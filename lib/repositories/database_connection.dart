@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:AX023/constants.dart';
+import 'package:AX023/configuration.dart';
 import 'package:logger/logger.dart';
 import 'package:sqlite_wrapper/sqlite_wrapper.dart';
 import 'package:path/path.dart' as p;
@@ -15,9 +15,9 @@ class DatabaseConnection {
 
   static Future<DatabaseConnection> getInstance() async {
     if (_instance._databaseInfo == null) {
-      Constants constants = await Constants.create();
+      Configuration constants = await Configuration.getInstance();
 
-      final docDir = Directory(constants.basePath);
+      final docDir = Directory(constants.databaseFolder);
       if (!await docDir.exists()) {
         await docDir.create(recursive: true);
       }
