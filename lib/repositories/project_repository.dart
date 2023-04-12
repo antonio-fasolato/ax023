@@ -28,12 +28,14 @@ class ProjectRepository {
   }
 
   Future<void> save(ProjectDao p) async {
-    logger.d({"save", p.toMap()});
-    await sqlWrapper.insert(p.toMap(), "project");
+    Map<String, dynamic> m = p.toMap();
+    logger.d({"save", m});
+    await sqlWrapper.insert(m, "project");
   }
 
   Future<void> delete(ProjectDao p) async {
-    logger.d({"delete", p.toMap()});
-    await sqlWrapper.delete(p.toMap(), "project", keys: ["id"]);
+    Map<String, dynamic> m = p.toMap();
+    logger.d({"delete", m});
+    await sqlWrapper.delete(m, "project", keys: ["id"]);
   }
 }

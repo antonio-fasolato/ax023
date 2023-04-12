@@ -32,6 +32,7 @@ class DatabaseConnection {
         PRIMARY KEY ("year", "month")
       ); 
       """;
+      logger.d(sql);
       await SQLiteWrapper().execute(sql);
       sql = """
         CREATE TABLE IF NOT EXISTS "project" (
@@ -42,6 +43,7 @@ class DatabaseConnection {
           "color" int not null default(0)
         ); 
       """;
+      logger.d(sql);
       await SQLiteWrapper().execute(sql);
     }
     return _instance;

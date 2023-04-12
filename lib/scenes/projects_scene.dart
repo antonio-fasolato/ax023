@@ -1,7 +1,6 @@
 import 'package:AX023/components/project_dialog.dart';
 import 'package:AX023/repositories/project_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 import '../components/project_card.dart';
@@ -18,7 +17,6 @@ class ProjectsScene extends StatefulWidget {
 
 class _ProjectSceneState extends State<ProjectsScene> {
   List<ProjectDao> _projects = [];
-  final logger = Logger();
 
   @override
   void initState() {

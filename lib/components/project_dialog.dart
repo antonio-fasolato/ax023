@@ -1,12 +1,10 @@
 import 'package:AX023/model/project_dao.dart';
 import 'package:AX023/repositories/project_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
 
 class ProjectDialog extends StatelessWidget {
   final Function(ProjectDao project) _onSaved;
-  final logger = Logger();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController codeController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -29,9 +27,6 @@ class ProjectDialog extends StatelessWidget {
                 controller: codeController,
                 decoration: const InputDecoration(
                     labelText: "Commessa", icon: Icon(Icons.account_box)),
-                onSaved: (newValue) {
-                  logger.d("Saved commessa: $newValue");
-                },
                 validator: (value) {
                   if (value?.isEmpty ?? false) {
                     return "Codice commessa obbligatorio";
@@ -45,9 +40,6 @@ class ProjectDialog extends StatelessWidget {
                   controller: nameController,
                   decoration: const InputDecoration(
                       labelText: "Nome progetto", icon: Icon(Icons.email)),
-                  onSaved: (newValue) {
-                    logger.d("Saved nome: $newValue");
-                  },
                   validator: (value) {
                     if (value?.isEmpty ?? false) {
                       return "Nome progetto obbligatorio";
