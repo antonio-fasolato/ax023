@@ -20,7 +20,7 @@ class OptionsScene extends StatelessWidget {
       required this.title,
       required this.config,
       required this.connection}) {
-    folderController.text = config.databaseFolder;
+    folderController.text = config.databasePath;
   }
 
   @override
@@ -52,12 +52,11 @@ class OptionsScene extends StatelessWidget {
                   ),
                   IconButton(
                       onPressed: () async {
-                        String? selectedDirectory = await FilePicker.platform
-                            .getDirectoryPath(
-                                dialogTitle:
-                                    "Selezionare la cartella di salvataggio del database");
-                        if (selectedDirectory != null) {
-                          folderController.text = selectedDirectory;
+                        String? selectedPath = await FilePicker.platform
+                            .saveFile(
+                                dialogTitle: "Selezionare il file di database");
+                        if (selectedPath != null) {
+                          folderController.text = selectedPath;
                         }
                       },
                       icon: const Icon(Icons.more_horiz))
@@ -70,7 +69,7 @@ class OptionsScene extends StatelessWidget {
                       padding: const EdgeInsets.all(40),
                       child: ElevatedButton(
                           onPressed: () async {
-                            config.databaseFolder = folderController.text;
+                            config.databasePath = folderController.text;
                             await connection.reconnect();
                           },
                           child: const Text("Salva")))

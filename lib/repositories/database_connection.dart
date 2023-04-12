@@ -14,14 +14,9 @@ class DatabaseConnection {
   DatabaseConnection._internal();
 
   Future<void> reconnect() async {
-    Configuration constants = await Configuration.getInstance();
+    Configuration config = await Configuration.getInstance();
 
-    final docDir = Directory(constants.databaseFolder);
-    if (!await docDir.exists()) {
-      await docDir.create(recursive: true);
-    }
-    _instance._databaseInfo = await SQLiteWrapper()
-        .openDB(p.join(docDir.path, constants.databaseName));
+    _instance._databaseInfo = await SQLiteWrapper().openDB(config.databasePath);
     logger.d("Connected to database ${_instance._databaseInfo?.path}");
 
     String sql = """
